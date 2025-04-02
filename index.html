@@ -1,43 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple HTML Example</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        .button-container {
-            text-align: center;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        #message {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #333;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Found it!</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    .magic-8-ball {
+      width: 300px;
+      height: 300px;
+      background: url('https://magic-8ball.com/wp-content/uploads/ball.png') no-repeat center;
+      background-size: cover;
+      border-radius: 50%;
+      position: relative;
+      transition: background 0.5s ease-in-out;
+    }
+    .back-face {
+      background: url('https://magic-8ball.com/wp-content/uploads/ball-back.png') no-repeat center !important;
+      background-size: cover !important;
+    }
+    .shake {
+      animation: shake 0.2s ease-in-out infinite alternate;
+    }
+    @keyframes shake {
+      0% { transform: translate(8px, -8px) rotate(6deg); }
+      25% { transform: translate(-8px, 8px) rotate(-6deg); }
+      50% { transform: translate(8px, -8px) rotate(6deg); }
+      75% { transform: translate(-8px, 8px) rotate(-6deg); }
+      100% { transform: translate(8px, -8px) rotate(6deg); }
+    }
+    .window {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background-color: #333;
+      border-radius: 50%;
+      top: 90px;
+      left: 90px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+      visibility: hidden;
+    }
+    .message-container {
+      width: 100px;
+      height: 100px;
+      background: #000b30;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .message-container img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+    .button {
+      background-color: #1d4ed8;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-bottom: 20px;
+    }
+    .button:hover {
+      background-color: #1e40af;
+    }
+  </style>
 </head>
 <body>
-    <div class="button-container">
-        <button onclick="
-            (() => {
-                const message = 'Hello, you clicked the button!';
-                document.getElementById('message').textContent = message;
-            })();
-        ">Click Me!</button>
-        <div id="message"></div>
+  <button id="shake-button" class="button">Shake Billa's Magic 8 Ball</button>
+  <div class="magic-8-ball" id="ball">
+    <div class="window" id="window">
+      <div class="message-container" id="message">
+        <img id="output-image" src="" alt="">
+      </div>
     </div>
+  </div>
+  <script>
+    document.getElementById("shake-button").addEventListener("click", function() {
+      let ball = document.getElementById("ball");
+      let windowEl = document.getElementById("window");
+      let outputImage = document.getElementById("output-image");
+      
+      ball.classList.add("shake");
+      setTimeout(() => {
+        ball.classList.remove("shake");
+        ball.classList.add("back-face");
+        windowEl.style.visibility = "visible";
+        
+        outputImage.src = "https://convoke.in/_next/image?url=%2FTeam%2FBillaBond.png&w=1080&q=90";
+        
+        setTimeout(() => {
+          alert("Congratulations! You have found Billa's ball! Show this to your nearest volunteer to get verified for Round 2...");
+        }, 2000);
+      }, 1000);
+    });
+  </script>
 </body>
 </html>
